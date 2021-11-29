@@ -1,0 +1,67 @@
+<app-loading [Loading]="_Loading"></app-loading>
+<div class="pg-container container-fluid pageContainer" id="reciveContainer">
+  <pgcard
+    #cardGeneral
+    style="height: 100%"
+    class="card-body-process"
+    Refresh="false"
+    [Toggle]="false"
+    [Loading]="false"
+    [Close]="false"
+    [Maximize]="false"
+  >
+    <div class="row">
+      <div class="input-group col-4">
+        <input
+          #ShipNumber
+          type="text"
+          class="form-control"
+          placeholder="#Shipment..."
+          aria-label="search"
+          aria-describedby="basic-addon2"
+          (keyup)="onkeyupShipNumber($event)"
+          (keyup.enter)="onGetShipment()"
+        />
+        <div class="input-group-append">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="onGetShipment()"
+          >
+            <i style="font-size: 30px" class="pg-icon">search</i>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-8">
+        <button
+          type="button"
+          style="float: right"
+          class="btn btn-primary btn-icon-left"
+          [disabled]="!(_LstRecive.length > 0)"
+          (click)="reciveShipment()"
+        >
+          <i class="pg-icon">plus</i>
+          <span>Receive shipment</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="row pt-3">
+      <div class="col-md-12 h-75">
+        <ag-grid-angular
+          #agGrid 
+          class="ag-theme-balham"
+          domLayout='autoHeight'
+          [rowData]="_LstRecive"
+          [columnDefs]="_ColumnDef"
+          [defaultColDef]="_DefaultColDef"
+          (gridReady)="onGridReady($event)"
+          pagination="true"
+          paginationPageSize="15"
+        >
+        </ag-grid-angular>
+      </div>
+    </div>
+  </pgcard>
+</div>

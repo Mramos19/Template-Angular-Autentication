@@ -1,0 +1,287 @@
+<app-loading [Loading]="_Loading"></app-loading>
+<div class="pg-container container-fluid pageContainer">
+  <div class="row" id="divFormHeader">
+    <div class="col-2">
+      <pgcard
+        #cardShipmentInfo
+        style="height: 100%; width: 100%"
+        class="card-body-process d-flex"
+        Refresh="false"
+        [Toggle]="false"
+        [Loading]="false"
+        [Close]="false"
+        [Maximize]="false"
+      >
+        <ng-template #CardTitle>Load Shipment Data</ng-template>
+        <label># Ship</label>
+        <div class="form-group input-group">
+          <div class="input-group-append">
+            <span class="input-group-text primary"
+              ><i class="pg-icon">send</i>
+            </span>
+          </div>
+          <input
+            #ShipmentNo
+            type="text"
+            placeholder="Type a Shipment"
+            class="form-control input-sm"
+            (keyup)="onKeyupLoadShipment($event)"
+          />
+        </div>
+
+        <label># Lot</label>
+        <div class="form-group input-group">
+          <div class="input-group-append">
+            <span class="input-group-text primary"
+              ><i class="pg-icon">clipboard</i>
+            </span>
+          </div>
+          <input
+            #Lot
+            type="text"
+            placeholder="Type a Lot"
+            class="form-control input-sm"
+            (keyup)="onKeyupLoadShipment($event)"
+          />
+        </div>
+        <br />
+        <button
+          [disabled]="!_LoadData"
+          class="btn btn-primary btn-block btn-lg btn-icon-left"
+          type="button"
+          (click)="onLoadShipmentData($event)"
+        >
+          <i class="pg-icon">plus</i><span class="">Add Lot</span>
+        </button>
+      </pgcard>
+    </div>
+
+    <div class="col-10">
+      <pgcard
+        style="width: 100%; height: 100%"
+        #cardShipDetail
+        class="card-body-process d-flex"
+        Refresh="false"
+        [Toggle]="false"
+        [Loading]="false"
+        [Close]="false"
+        [Maximize]="false"
+      >
+        <ng-template #CardTitle>Shipment Detail </ng-template>
+        <div class="card card-borderless">
+          <pg-tabset
+            tabAnimation="slide-left"
+            Type="simple"
+            ShowPagination="true"
+          >
+            <pg-tab>
+              <ng-template #TabHeading>Lot Shipment Detail</ng-template>
+              <div class="row">
+                <div class="col-md-6">
+                  <p class="hint-text bold">Customer Information</p>
+                  <div class="form-group-attached">
+                    <div class="row clearfix">
+                      <div class="col-md-6">
+                        <div class="form-group form-group-default">
+                          <label class="label-sm">PO</label>
+                          <input
+                            #PO
+                            type="text"
+                            class="form-control input-sm"
+                            readonly
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group form-group-default">
+                          <label class="label-sm">Item</label>
+                          <input
+                            #ProdCode
+                            type="text"
+                            class="form-control input-sm"
+                            readonly
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="form-group form-group-default">
+                        <label class="label-sm">Client</label>
+                        <input
+                          #Customer
+                          type="text"
+                          class="form-control input-sm"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <p class="hint-text bold">Ship Information</p>
+                  <div class="form-group-attached">
+                    <div class="row clearfix">
+                      <div class="col-md-4">
+                        <div class="form-group form-group-default">
+                          <label class="label-sm">Traveler</label>
+                          <input
+                            #Traveler
+                            type="text"
+                            class="form-control input-sm"
+                            disabled
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group form-group-default">
+                          <label class="label-sm">Label Approved</label>
+                          <input
+                            #Approved
+                            type="text"
+                            class="form-control input-sm"
+                            readonly
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group form-group-default">
+                          <label class="label-sm">Lebel Generated</label>
+                          <input
+                            #Generated
+                            type="text"
+                            class="form-control input-sm"
+                            readonly
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row clearfix">
+                      <div class="col-md-3">
+                        <div class="form-group form-group-default">
+                          <label class="label-sm">Total Qty</label>
+                          <input
+                            #TotalQty
+                            type="text"
+                            class="form-control input-sm text-right"
+                            readonly
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group form-group-default">
+                          <label class="label-sm">Total Meerp</label>
+                          <input
+                            #TotalQtyMeerp
+                            type="text"
+                            class="form-control input-sm  text-right"
+                            readonly
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group form-group-default">
+                          <label class="label-sm">Shipped</label>
+                          <input
+                            #Shipped
+                            type="text"
+                            class="form-control input-sm  text-right"
+                            readonly
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group form-group-default">
+                          <label class="label-sm">Ship Nica</label>
+                          <input
+                            #ShipNica
+                            type="text"
+                            class="form-control input-sm"
+                            readonly
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group form-group-default">
+                          <label class="label-sm">Sent Nica</label>
+                          <input
+                            #SentNica
+                            type="text"
+                            class="form-control input-sm text-right"
+                            readonly
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </pg-tab>
+            <pg-tab>
+              <ng-template #TabHeading> Backorder Detail </ng-template>
+              <div class="row">
+                <ag-grid-angular
+                  #grdBackorder
+                  style="width: 100%"
+                  class="ag-theme-balham"
+                  domLayout="autoHeight"
+                  [rowData]="_LstBackorder"
+                  [columnDefs]="_ColumnDefBO"
+                  [defaultColDef]="_DefaultColDef"
+                  (gridReady)="onGridBackorderReady($event)"
+                  pagination="true"
+                  paginationPageSize="5"
+                >
+                </ag-grid-angular>
+              </div>
+            </pg-tab>
+          </pg-tabset>
+        </div>
+      </pgcard>
+    </div>
+  </div>
+
+  <div id="divFormDetail">
+    <pgcard
+      #cardBackorder
+      class="card-body-process"
+      Refresh="false"
+      [Toggle]="false"
+      [Loading]="false"
+      [Close]="false"
+      [Maximize]="false"
+    >
+      <ng-template #CardTitle>Shipment Data </ng-template>
+      <ag-grid-angular
+        #grdShipment
+        class="ag-theme-balham"
+        domLayout="autoHeight"
+        [rowData]="_LstShipment"
+        [columnDefs]="_ColumnDefShip"
+        [defaultColDef]="_DefaultColShip"
+        [frameworkComponents]="_frameworkComponents"
+        [context]="context"
+        (gridReady)="onGridShipmentReady($event)"
+        (rowSelected)="onRowSelectedShipment($event)"
+        (cellValueChanged)="oncellValueChangedShipment($event)"
+        pagination="true"
+        paginationPageSize="20"
+        rowSelection="single"
+      >
+      </ag-grid-angular>
+
+      <div class="row mt-2">
+        <div class="col-md-12" style="text-align: right">
+          <button
+            [disabled]="!(_LstShipment.length > 0 && _SaveShip)"
+            class="btn btn-success btn-lg btn-icon-left"
+            type="button"
+            (click)="saveShipment()"
+          >
+            <i class="pg-icon">send</i><span class="">Save Shipment</span>
+          </button>
+        </div>
+      </div>
+    </pgcard>
+  </div>
+</div>
